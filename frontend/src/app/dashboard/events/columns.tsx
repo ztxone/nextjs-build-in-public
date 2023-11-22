@@ -1,12 +1,11 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import { ArchiveRestore, ArchiveX, Pencil } from "lucide-react"
 
 import { formatTime } from "@/lib/api-helpers"
 import { StrapiEventData } from "@/types/strapi-custom-types"
 
-import { Button } from "@/components/ui/button"
+import CellAction from "../cell-action"
 
 
 // This type is used to define the shape of our data.
@@ -49,14 +48,6 @@ export const columns: ColumnDef<StrapiEventData>[] = [
   {
     id: "actions",
     header: "Actions",
-    cell: ({ row }) => {
-      return (
-        <div className="flex gap-1">
-        <Button size="icon" variant="ghost" className="hover:text-white"><Pencil className="h-4 w-4" /></Button>
-        <Button size="icon" variant="ghost" className="hover:text-white"><ArchiveX className="h-5 w-5" /></Button>
-        <Button size="icon" variant="ghost" className="hover:text-white"><ArchiveRestore className="h-5 w-5" /></Button>
-        </div>
-      )
-    },
+    cell: ({ row }) => <div  className="flex items-center justify-center"><CellAction data={row.original} /></div>,
   },
 ]

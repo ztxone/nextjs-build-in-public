@@ -64,9 +64,8 @@ const Header = ({ data }: { data: HeaderProps }) => {
         );
       } else {
         return (
-          <Button asChild variant="ghost" className="hover:bg-muted">
-            <Link
-              key={id}
+          <Button key={id} asChild variant="ghost" className="hover:bg-muted">
+            <Link              
               href={href}
             >
               {text}

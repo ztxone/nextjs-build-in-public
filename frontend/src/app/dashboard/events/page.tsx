@@ -2,13 +2,14 @@
 import qs from "qs";
 import { Suspense } from "react";
 import type { StrapiEventData } from "@/types/strapi-custom-types";
-import getEventsAuthAction from "@/actions/get-events-auth-action";
+import getEventsAuthLoader from "@/loaders/get-events-auth-loader";
 import { Archive } from "lucide-react"
 
 import {  columns } from "./columns";
 import { DataTable } from "@/components/ui/data-table";
 import PageHeading from "@/components/PageHeading";
 import { Separator } from "@/components/ui/separator"
+import { log } from "console"
 
 const eventsQuery = qs.stringify({
   populate: {
@@ -20,9 +21,10 @@ const eventsQuery = qs.stringify({
 });
 
 
-export default async function MyEventsRoute() {
 
-  const resEvents = await getEventsAuthAction(eventsQuery);
+export default async function MyEventsRoute() {
+  
+  const resEvents = await getEventsAuthLoader(eventsQuery);
   const events = resEvents?.data.data as StrapiEventData[];
   const empty = [] as StrapiEventData[]
   if (!events) return null;
@@ -37,7 +39,7 @@ export default async function MyEventsRoute() {
     <div>
       <h3 className="text-sm flex gap-2">
         <Archive className="h-5 w-5"/>Your passed and archived events</h3>
-      <DataTable columns={columns} data={empty} />
+        <DataTable columns={columns} data={empty} />
     </div>
     </Suspense>
   );
